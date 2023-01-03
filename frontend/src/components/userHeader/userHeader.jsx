@@ -14,11 +14,13 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useDispatch } from "react-redux";
 import { deleteToken } from "../../redux/Features/reducers/userAuthSlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const pages = [];
 
 function ResponsiveAppBar({picture}) {
+  const navigate = useNavigate();
   const dispatch = useDispatch()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -41,6 +43,7 @@ function ResponsiveAppBar({picture}) {
   const handleLogOut=()=>{
     console.log("dcbjdb");
     dispatch(deleteToken())
+    navigate('/login')
   }
   return (
     <AppBar

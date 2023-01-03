@@ -53,6 +53,8 @@ export const addNewUser = asyncHandler(async (req, res) => {
 
 export const editUser = asyncHandler(async(req,res)=>{
     const userId=req.params.id
+    console.log(userId)
+    console.log('this is userid')
     let {name,email}=req.body;
     console.log(userId,name,email)
     email = email.toLowerCase();
@@ -71,6 +73,7 @@ export const editUser = asyncHandler(async(req,res)=>{
 
 export const deleteUser = asyncHandler(async(req,res)=>{
     const userId = req.params.id;
+    console.log(userId)
     await User.findByIdAndDelete(userId)
     res.json({
         status:"success",

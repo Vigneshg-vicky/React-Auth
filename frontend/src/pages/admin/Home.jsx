@@ -1,37 +1,43 @@
-import { Box } from '@mui/system'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
-import AdminTable from '../../components/adminTable/AdminTable'
-import { selectAdminAuth } from '../../redux/Features/reducers/adminAuthSlice'
+import { Box } from "@mui/system";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+import AdminTable from "../../components/adminTable/AdminTable";
+import { selectAdminAuth } from "../../redux/Features/reducers/adminAuthSlice";
+import { deleteAdminToken } from "../../redux/Features/reducers/adminAuthSlice";
 
-
+// const dispatch = useDispatch();
+// const navigate = useNavigate();
 function Home() {
-  const data = useSelector(selectAdminAuth)
+  const data = useSelector(selectAdminAuth);
   const myStyle = {
-    backgroundImage: "url('https://images.alphacoders.com/597/597903.jpg')",
-    backgroundColor: "#000",
+    // backgroundImage: "url('https://images.alphacoders.com/597/597903.jpg')",
+    backgroundColor: "#23cfc0",
     height: "100vh",
     fontSize: "50px",
-    backgroundSize:"cover"
-   
+    backgroundSize: "cover",
   };
-  if(data.token){
+  // const LogoutAdmin = ()=>{
+  //   console.log("hvkhvkh")
+  //   dispatch(deleteAdminToken())
+  //   navigate('/admin/login')
+    
+  // }
+  if (data.token) {
     return (
       <>
-      <Box sx={myStyle}>
-        <div style={{width:"70%", margin:"auto" ,paddingTop:"4rem"}} >
-          <h4>USER MANAGEMENT</h4>
-        <AdminTable/>
-        </div>
-      </Box>
+        <Box sx={myStyle}>
+          <div style={{ width: "70%", margin: "auto", paddingTop: "4rem" }}>
+            <h4>USER MANAGEMENT</h4>
+            <AdminTable />
+          </div>
+          {/* <button style={{width:"10rem"}} className="btn btn-primary" onClick={LogoutAdmin}>Logout</button> */}
+        </Box>
       </>
-    )
-  }else{
-    return(
-      <Navigate to='/admin/login' />
-    )
+    );
+  } else {
+    return <Navigate to="/admin/login" />;
   }
 }
 
-export default Home
+export default Home;

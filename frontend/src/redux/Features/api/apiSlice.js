@@ -39,6 +39,14 @@ export const apiSlice = createApi({
            query: () => '/get-user',
            providesTags: ['user']
         }),
+        setProfilePicture: builder.mutation({
+            query: ({ formData, id }) => ({
+                url: `/set-profile-picture/${id}`,
+                method: "PATCH",
+                body: formData,
+            }),
+            invalidatesTags: ['user']
+        }),
         adminLogin: builder.mutation({
             query: (loginData) => ({
                 url: '/admin/login',
@@ -61,8 +69,8 @@ export const apiSlice = createApi({
         }),
 
         adminEditUser: builder.mutation({
-            query: ({ data, id }) => ({
-                url: `/admin/edit-user/${id}`,
+            query: ({ data, Id }) => ({
+                url: `/admin/edit-user/${Id}`,
                 method: 'PATCH',
                 body: data
             }),
@@ -70,8 +78,8 @@ export const apiSlice = createApi({
         }),
 
         adminDeleteUser: builder.mutation({
-            query: ({ id }) => ({
-                url: `/admin/delete-user/${id}`,
+            query: ({ userId }) => ({
+                url: `/admin/delete-user/${userId}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['admin', 'user']
@@ -87,5 +95,6 @@ export const {
     useAdminEditUserMutation,
     useAdminDeleteUserMutation,
     useGetUserDataQuery,
+    useSetProfilePictureMutation,
     useAdminGetUserDataQuery
       } = apiSlice;

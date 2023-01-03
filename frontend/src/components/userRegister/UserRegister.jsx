@@ -11,19 +11,24 @@ import Container from "@mui/material/Container";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { useUserRegisterMutation } from "../../redux/Features/api/apiSlice";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/Features/reducers/userAuthSlice";
 import { useState } from "react";
-import "./userRegister.css"
+import "./userRegister.css";
 
 const schema = yup.object().shape({
-  name: yup.string().required().min(6).matches(/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]*$/,"enter a valid name"),
+  name: yup
+    .string()
+    .required()
+    .min(6)
+    .matches(/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]*$/, "enter a valid name"),
   email: yup.string().required().email(),
   password: yup.string().required(),
   confirmPassword: yup
-    .string().required()
+    .string()
+    .required()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
@@ -34,23 +39,24 @@ export default function UserRegister() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode:'onChange'
   });
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [registerError,setRegisterError] = useState('')
+  const [registerError, setRegisterError] = useState("");
 
-  const [registerUser]=useUserRegisterMutation(); 
+  const [registerUser] = useUserRegisterMutation();
 
-  const submitHandler =async(data) => {
-    try{
-      const res=await registerUser(data).unwrap()
-      if(res.status==="success"){
-        dispatch(setToken(res))
-        navigate('/')
+  const submitHandler = async (data) => {
+    try {
+      const res = await registerUser(data).unwrap();
+      if (res.status === "success") {
+        dispatch(setToken(res));
+        navigate("/");
       }
-    }catch(err){
-      setRegisterError(err.data.message)
+    } catch (err) {
+      setRegisterError(err.data.message);
     }
   };
   return (
@@ -111,7 +117,9 @@ export default function UserRegister() {
             type="password"
             id="confirmPassword"
             error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword ? errors.confirmPassword.message : ""}
+            helperText={
+              errors.confirmPassword ? errors.confirmPassword.message : ""
+            }
             {...register("confirmPassword")}
           />
           <p className="errorrr">{registerError}</p>
@@ -123,11 +131,11 @@ export default function UserRegister() {
           >
             Sign In
           </Button>
-          <Grid container sx={{justifyContent:"center"}}>
+          <Grid container sx={{ justifyContent: "center" }}>
             <Grid item xxl>
               <Link to={"/login"} variant="body2">
-                <span style={{cursor:"pointer"}}>
-                 Already have an account? Log in
+                <span style={{ cursor: "pointer" }}>
+                  Already have an account? Log in
                 </span>
               </Link>
             </Grid>

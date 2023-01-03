@@ -13,28 +13,33 @@ function Home() {
     backgroundColor: "#000",
     height: "100vh",
     fontSize: "50px",
-    backgroundSize:"cover"
-   
+    backgroundSize: "cover",
   };
-  const user=useSelector(selectUserAuth)
-  let userData={}
-  if(user.token){
-    const { data, isLoading, isFetching, isSuccess, isError, error, refetch } = useGetUserDataQuery()
-    if(isSuccess){
-       userData=data.userData
-     }
-    return (
-      <>
-        <NavBar picture={userData.picture}/>
-        <UserProfileCard name={userData.name} email={userData.email} picture={userData.picture}/>
-        {/* <Box sx={myStyle} >
+  const user = useSelector(selectUserAuth);
+  let userData = {};
+  if (user.token) {
+    const { data, isLoading, isFetching, isSuccess, isError, error, refetch } =
+      useGetUserDataQuery();
+    if (isSuccess) {
+      console.log(data);
+      userData = data.userData;
+
+      return (
+        <>
+          <NavBar picture={userData.picture} />
+          <UserProfileCard
+            name={userData.name}
+            email={userData.email}
+            picture={userData.picture}
+            id={userData._id}
+          />
+          {/* <Box sx={myStyle} >
           </Box> */}
-      </>
-    );
-  }else{
-    return(
-     <Navigate to='/login'/>
-    )
+        </>
+      );
+    }
+  } else {
+    return <Navigate to="/login" />;
   }
 }
 
