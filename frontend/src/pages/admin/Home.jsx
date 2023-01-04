@@ -6,9 +6,9 @@ import AdminTable from "../../components/adminTable/AdminTable";
 import { selectAdminAuth } from "../../redux/Features/reducers/adminAuthSlice";
 import { deleteAdminToken } from "../../redux/Features/reducers/adminAuthSlice";
 
-// const dispatch = useDispatch();
-// const navigate = useNavigate();
 function Home() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const data = useSelector(selectAdminAuth);
   const myStyle = {
     // backgroundImage: "url('https://images.alphacoders.com/597/597903.jpg')",
@@ -17,12 +17,12 @@ function Home() {
     fontSize: "50px",
     backgroundSize: "cover",
   };
-  // const LogoutAdmin = ()=>{
-  //   console.log("hvkhvkh")
-  //   dispatch(deleteAdminToken())
-  //   navigate('/admin/login')
+  const LogoutAdmin = ()=>{
+    console.log("hvkhvkh")
+    dispatch(deleteAdminToken())
+    navigate('/admin/login')
     
-  // }
+  }
   if (data.token) {
     return (
       <>
@@ -31,7 +31,7 @@ function Home() {
             <h4>USER MANAGEMENT</h4>
             <AdminTable />
           </div>
-          {/* <button style={{width:"10rem"}} className="btn btn-primary" onClick={LogoutAdmin}>Logout</button> */}
+          <button style={{width:"10rem", marginLeft:"13.9rem"}} className="btn btn-primary" onClick={LogoutAdmin}>Logout</button>
         </Box>
       </>
     );
